@@ -7,11 +7,13 @@ import Link from "next/link";
 import React from "react";
 
 const Signup = () => {
+  // 自作のuseSignupFormフック(カスタムフック)を使用してフォームの状態とサブミット関数を取得
   const { form, onSubmit, error } = useSignupForm();
 
   return (
     <div className="mx-auto max-w-sm my-14">
       <h2 className="text-center font-medium text-2xl mb-4">新規登録</h2>
+      {/* エラーがある場合にエラーメッセージを表示 */}
       <p className="text-red-500 text-center">{error}</p>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <InputFiled
@@ -19,8 +21,10 @@ const Signup = () => {
           name="username"
           type="text"
           placeholder="ユーザー名"
+          // react-hook-formのregister関数を使用してフィールドを登録
           register={form.register}
         />
+        {/* エラーがある場合にエラーメッセージを表示 */}
         {form.formState.errors.username && (
           <p className="text-red-500">
             {form.formState.errors.username?.message}
@@ -33,6 +37,7 @@ const Signup = () => {
           placeholder="メールアドレス"
           register={form.register}
         />
+        {/* エラーがある場合にエラーメッセージを表示 */}
         {form.formState.errors.email && (
           <p className="text-red-500">{form.formState.errors.email?.message}</p>
         )}
@@ -43,6 +48,7 @@ const Signup = () => {
           placeholder="パスワード"
           register={form.register}
         />
+        {/* エラーがある場合にエラーメッセージを表示 */}
         {form.formState.errors.password && (
           <p className="text-red-500">
             {form.formState.errors.password?.message}

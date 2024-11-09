@@ -24,6 +24,7 @@ export const useLoginForm = () => {
   ) => {
     const { email, password } = data;
     try {
+      // ログイン
       const { data, error: signInError } =
         await supabase.auth.signInWithPassword({
           email,
@@ -31,10 +32,13 @@ export const useLoginForm = () => {
         });
 
       if (signInError) {
-        // console.log(signInError);
+        // "Email not confirmed"がエラーに含まれている場合
+        // メールアドレスを確認してください。というエラーメッセージを表示
         if (signInError.message.includes("Email not confirmed")) {
           setError("メールアドレスを確認してください。");
         }
+        // "Invalid login credentials"がエラーに含まれている場合
+        // そのようなユーザーは存在しません。というエラーメッセージを表示
         if (signInError.message.includes("Invalid login credentials")) {
           setError("そのようなユーザーは存在しません。");
         }

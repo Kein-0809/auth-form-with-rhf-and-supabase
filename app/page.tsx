@@ -7,12 +7,19 @@ import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
+
+  // "ブログ投稿"ボタンが押された時に実行される関数
+  // ログインしているかどうかを確認して、ログインしている場合はブログ投稿ページに遷移、ログインしていない場合はログインページに遷移
+  // 一般的にはログインしているかどうかのsessionやToken情報は、状態管理といわれてるライブラリやuseContextなどのグローバルでデータの値を管理することができるやつを使用する
   const handleBlogPost = async () => {
+    // sessionを取得 (ログインしているかどうかを確認するトークンのようなもの)
     const { data } = await supabase.auth.getSession();
     console.log(data);
     if (data.session) {
+      // ログインしている場合はブログ投稿ページに遷移
       router.push("/create-post");
     } else {
+      // ログインしていない場合はログインページに遷移
       router.push("/auth/login");
     }
   };
@@ -36,11 +43,14 @@ export default function Home() {
       </div>
       <Button
         colorClass="bg-slate-500 mt-4"
+        // ログアウトボタンが押された時に実行される関数
+        // Supabaseのauth.signOut関数を使用してログアウト
         onClick={async () => await supabase.auth.signOut()}
         type="button"
       >
         ログアウト
       </Button>
+      {/* ブログ投稿ボタン */}
       <Button
         colorClass="bg-green-500 mt-4"
         onClick={handleBlogPost}

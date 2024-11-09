@@ -6,9 +6,12 @@ interface InputFieldProps {
   type: string;
   label: string;
   placeholder: string;
+  // react-hook-formのUseFormRegister関数を使用してフィールドを登録
   register: UseFormRegister<any>;
 }
 
+// フォームのそれぞれの項目を表す入力フィールドのコンポーネント
+// このコンポーネントはフォームのそれぞれの項目を表す入力フィールドを生成する
 const InputFiled = ({
   name,
   label,
